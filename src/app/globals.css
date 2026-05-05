@@ -27,3 +27,11 @@ body {
 html {
   scroll-behavior: smooth;
 }
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(to bottom, #2563eb, #7c3aed);
+  border-radius: 10px;
+}

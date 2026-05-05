@@ -1,14 +1,28 @@
 export default function Contact() {
   return (
-    <section className="py-20 text-center">
-      <h2 className="text-3xl font-bold text-blue-900 mb-6">Contact Us</h2>
+    <section className="py-20 text-center bg-gradient-to-br from-indigo-100 to-blue-100 scroll-mt-24">
+      <h2 className="text-3xl font-bold text-black mb-6">Contact Us</h2>
 
       <form className="max-w-md mx-auto space-y-4">
-        <input placeholder="Name" className="w-full border p-3 rounded" />
-        <input placeholder="Email" className="w-full border p-3 rounded" />
-        <textarea placeholder="Message" className="w-full border p-3 rounded" />
+        <input
+          type="text"
+          placeholder="Name"
+          className="w-full p-3 rounded-lg bg-white border border-gray-300 text-gray-800 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500"
+        />
 
-        <button className="bg-blue-900 text-white px-6 py-3 rounded">
+        <input
+          type="email"
+          placeholder="Email"
+          className="w-full p-3 rounded-lg bg-white border border-gray-300 text-gray-800 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500"
+        />
+
+        <textarea
+          placeholder="Message"
+          rows={4}
+          className="w-full p-3 rounded-lg bg-white border border-gray-300 text-gray-800 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500"
+        />
+
+        <button className="w-full bg-linear-to-r from-blue-600 to-purple-600 text-white py-3 rounded-lg font-semibold hover:opacity-90 transition">
           Send Message
         </button>
       </form>
