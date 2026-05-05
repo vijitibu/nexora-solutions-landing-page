@@ -1,6 +1,6 @@
 export default function Contact() {
   return (
-    <section className="py-20 text-center bg-gradient-to-br from-indigo-100 to-blue-100 scroll-mt-24">
+    <section className="py-20 text-center bg-linear-to-br from-indigo-100 to-blue-100 scroll-mt-24">
       <h2 className="text-3xl font-bold text-black mb-6">Contact Us</h2>
 
       <form className="max-w-md mx-auto space-y-4">

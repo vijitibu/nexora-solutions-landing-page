@@ -36,7 +36,7 @@ export default function Testimonials() {
               key={index}
               className="bg-white p-4 rounded-lg shadow text-left"
             >
-              <p className="text-gray-600">"{item.text}"</p>
+              <p className="text-gray-600">{`"${item.text}"`}</p>
               <p className="mt-2 font-semibold text-blue-800">- {item.name}</p>
             </div>
           ))}
