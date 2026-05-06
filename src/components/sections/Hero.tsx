@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 export default function Hero() {
   return (
     <section className="bg-linear-to-r from-blue-900 to-purple-800 text-white py-28 text-center">
@@ -10,13 +12,20 @@ export default function Hero() {
         businesses grow.
       </p>
 
-      <div className="mt-8 flex justify-center gap-4">
-        <button className="bg-white text-blue-900 px-6 py-3 rounded-lg font-medium hover:scale-105 transition">
+      <div className="flex items-center justify-center gap-6 mt-10">
+        <Link
+          href="/services"
+          className="bg-white text-blue-700 px-8 py-4 rounded-2xl text-xl font-semibold shadow-lg hover:scale-105 transition"
+        >
           Get Started
-        </button>
-        <button className="border border-white px-6 py-3 rounded-lg hover:bg-white hover:text-blue-900 transition">
+        </Link>
+
+        <Link
+          href="/contact"
+          className="border border-white text-white px-8 py-4 rounded-2xl text-xl font-semibold hover:bg-white hover:text-purple-700 transition"
+        >
           Contact Us
-        </button>
+        </Link>
       </div>
     </section>
   );
