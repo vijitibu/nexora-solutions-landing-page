@@ -21,7 +21,7 @@ export default function Navbar() {
         <Link href="/" className="flex items-center gap-4">
           <div className="p-2">
             <Image
-              src="/logo.png"
+              src="/logo1.png"
               alt="NEXORA Solutions"
               width={50}
               height={50}
