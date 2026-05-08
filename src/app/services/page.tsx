@@ -80,7 +80,7 @@ export default function ServicesPage() {
 
       <main className="bg-gradient-to-br from-slate-950 via-blue-950 to-purple-950 min-h-screen text-white">
         {/* Hero Section */}
-        <section className="pt-40 pb-24 px-6 text-center max-w-6xl mx-auto">
+        <section className="pt-32 md:pt-40 pb-20 md:pb-24 px-4 sm:px-6 text-center max-w-6xl mx-auto overflow-hidden">
           <h1 className="text-5xl md:text-7xl font-extrabold leading-tight mb-8">
             IT Services and Solutions
             <br />
@@ -175,34 +175,40 @@ export default function ServicesPage() {
         </section>
 
         {/* Services Section */}
-        <section className="py-24 px-6 max-w-7xl mx-auto">
-          <div className="text-center mb-16">
+        <section className="py-14 md:py-24 px-4 sm:px-6 max-w-7xl mx-auto">
+          <div className="text-center mb-10 md:mb-16">
             <h2 className="text-4xl md:text-5xl font-bold mb-4">
               Services We Offer
             </h2>
 
-            <p className="text-gray-300 text-lg">
+            <p className="text-gray-300 text-base md:text-lg max-w-2xl mx-auto">
               Premium IT solutions designed for startups, enterprises, and
               modern businesses.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-10">
             {services.map((service, index) => {
               const Icon = service.icon;
 
               return (
                 <div
                   key={index}
-                  className="bg-white/10 backdrop-blur-xl border border-white/10 rounded-3xl p-8 hover:scale-105 transition duration-300 shadow-xl"
+                  className="bg-white/10 backdrop-blur-xl border border-white/10 rounded-3xl p-5 md:p-8 md:hover:scale-105 transition duration-300 shadow-xl"
                 >
-                  <div className="w-16 h-16 rounded-2xl bg-gradient-to-r from-blue-600 to-purple-600 flex items-center justify-center mb-6 shadow-lg">
-                    <Icon size={32} />
+                  {/* Icon + Title */}
+                  <div className="flex items-center gap-4 mb-4">
+                    <div className="w-14 h-14 rounded-2xl bg-gradient-to-r from-blue-600 to-purple-600 flex items-center justify-center shadow-lg shrink-0">
+                      <Icon size={28} />
+                    </div>
+
+                    <h3 className="text-xl md:text-2xl font-bold leading-tight">
+                      {service.title}
+                    </h3>
                   </div>
 
-                  <h3 className="text-2xl font-bold mb-4">{service.title}</h3>
-
-                  <p className="text-gray-300 leading-relaxed">
+                  {/* Description */}
+                  <p className="text-gray-300 leading-relaxed text-sm md:text-base">
                     {service.description}
                   </p>
                 </div>

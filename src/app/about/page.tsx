@@ -101,7 +101,7 @@ export default function AboutPage() {
 
       <main className="min-h-screen bg-gradient-to-br from-slate-950 via-blue-950 to-purple-950 text-white overflow-hidden">
         {/* Hero */}
-        <section className="relative pt-40 pb-28 px-6">
+        <section className="relative pt-32 md:pt-40 pb-20 md:pb-28 px-4 sm:px-6 overflow-hidden">
           <div className="absolute top-0 left-0 w-72 h-72 bg-purple-600/20 rounded-full blur-3xl"></div>
           <div className="absolute bottom-0 right-0 w-72 h-72 bg-blue-600/20 rounded-full blur-3xl"></div>
 
