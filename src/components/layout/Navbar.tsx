@@ -18,23 +18,22 @@ export default function Navbar() {
     <nav className="fixed top-0 w-full z-50 bg-white/80 backdrop-blur-md shadow-sm border-b border-gray-200">
       <div className="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
         {/* Logo */}
-        <Link href="/" className="flex items-center gap-4">
-          <div className="p-2">
-            <Image
-              src="/logo1.png"
-              alt="NEXORA Solutions"
-              width={50}
-              height={50}
-              className="rounded-lg"
-            />
-          </div>
+        <Link href="/" className="flex items-center gap-3">
+          <Image
+            src="/logo.png"
+            alt="NEXORA Solutions"
+            width={52}
+            height={52}
+            priority
+            className="object-contain rounded-xl"
+          />
 
-          <div>
-            <h1 className="text-4xl font-extrabold tracking-wide bg-gradient-to-r from-blue-800 to-purple-700 bg-clip-text text-transparent">
+          <div className="leading-none">
+            <h1 className="text-3xl md:text-4xl font-extrabold tracking-wide bg-gradient-to-r from-blue-800 to-purple-700 bg-clip-text text-transparent">
               NEXORA
             </h1>
 
-            <p className="text-sm text-gray-500 font-medium -mt-1">Solutions</p>
+            <p className="text-sm text-gray-500 font-medium mt-1">Solutions</p>
           </div>
         </Link>
 

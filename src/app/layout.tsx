@@ -13,10 +13,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" data-scroll-behavior="smooth" suppressHydrationWarning>
-      <body
-        suppressHydrationWarning
-        className="bg-white text-gray-900 antialiased"
-      >
+      <body className="bg-white text-gray-900 antialiased overflow-x-hidden">
         {children}
       </body>
     </html>
