@@ -88,10 +88,10 @@ export const serviceFeatures: ServiceFeature[] = [
   },
   {
     id: 5,
-    title: "Database Management",
+    title: "Digital Marketing",
     description:
-      "Efficient database architecture, optimization, and maintenance services.",
-    icon: Database,
+      "Growth-focused digital marketing strategies to increase reach, engagement, and business conversions.",
+    icon: MonitorSmartphone,
   },
   {
     id: 6,
