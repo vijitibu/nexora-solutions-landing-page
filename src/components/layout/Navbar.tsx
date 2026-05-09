@@ -29,7 +29,7 @@ export default function Navbar() {
           />
 
           <div className="leading-none">
-            <h1 className="text-3xl md:text-4xl font-extrabold tracking-wide bg-gradient-to-r from-blue-800 to-purple-700 bg-clip-text text-transparent">
+            <h1 className="text-3xl md:text-4xl font-extrabold tracking-wide bg-linear-to-r from-blue-800 to-purple-700 bg-clip-text text-transparent">
               NEXORA
             </h1>
 

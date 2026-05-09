@@ -9,80 +9,9 @@ import { useState } from "react";
 
 import { motion, AnimatePresence } from "framer-motion";
 
-import { Rocket, ShieldCheck, Users, HeartHandshake, Star } from "lucide-react";
 import SliderButton from "@/components/ui/SliderButton";
-
-const values = [
-  {
-    title: "Innovation",
-    description:
-      "We build modern and scalable digital products using the latest technologies.",
-    icon: Rocket,
-  },
-  {
-    title: "Security",
-    description:
-      "Enterprise-grade security and cloud infrastructure for businesses.",
-    icon: ShieldCheck,
-  },
-  {
-    title: "Collaboration",
-    description:
-      "We work closely with our clients to deliver world-class solutions.",
-    icon: Users,
-  },
-  {
-    title: "Commitment",
-    description:
-      "Customer success and long-term partnerships are our top priorities.",
-    icon: HeartHandshake,
-  },
-];
-
-const reviews = [
-  {
-    name: "Michael Johnson",
-    role: "CEO, TechNova",
-    image: "/client1.jpeg",
-    review: "NEXORA delivered an incredible digital platform for our company.",
-  },
-  {
-    name: "Sarah Williams",
-    role: "Founder, Bright Solutions",
-    image: "/client2.jpeg",
-    review: "Outstanding support, beautiful UI, and excellent communication.",
-  },
-  {
-    name: "David Brown",
-    role: "Manager, CloudSync",
-    image: "/client3.jpeg",
-    review:
-      "Professional team with exceptional cloud and cybersecurity services.",
-  },
-];
-
-const team = [
-  {
-    name: "James Carter",
-    role: "CEO & Founder",
-    image: "/team1.jpeg",
-  },
-  {
-    name: "Emily Watson",
-    role: "UI/UX Designer",
-    image: "/team2.jpeg",
-  },
-  {
-    name: "Daniel Smith",
-    role: "Senior Developer",
-    image: "/team3.jpeg",
-  },
-  {
-    name: "Sophia Miller",
-    role: "Project Manager",
-    image: "/team4.jpeg",
-  },
-];
+import { reviews, team, values } from "@/data/about";
+import { Star } from "lucide-react";
 
 export default function AboutPage() {
   const [current, setCurrent] = useState(0);
@@ -99,7 +28,7 @@ export default function AboutPage() {
     <>
       <Navbar />
 
-      <main className="min-h-screen bg-gradient-to-br from-slate-950 via-blue-950 to-purple-950 text-white overflow-hidden">
+      <main className="min-h-screen bg-linear-to-br from-slate-950 via-blue-950 to-purple-950 text-white overflow-hidden">
         {/* Hero */}
         <section className="relative pt-32 md:pt-40 pb-20 md:pb-28 px-4 sm:px-6 overflow-hidden">
           <div className="absolute top-0 left-0 w-72 h-72 bg-purple-600/20 rounded-full blur-3xl"></div>
@@ -113,7 +42,7 @@ export default function AboutPage() {
             >
               <h1 className="text-5xl md:text-7xl font-extrabold leading-tight mb-8">
                 About
-                <span className="bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
+                <span className="bg-linear-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
                   NEXORA
                 </span>
               </h1>
@@ -126,7 +55,7 @@ export default function AboutPage() {
               <div className="flex flex-col sm:flex-row gap-6">
                 <Link
                   href="/services"
-                  className="px-8 py-4 rounded-2xl bg-gradient-to-r from-blue-600 to-purple-600 text-lg font-semibold shadow-2xl hover:scale-105 transition"
+                  className="px-8 py-4 rounded-2xl bg-linear-to-r from-blue-600 to-purple-600 text-lg font-semibold shadow-2xl hover:scale-105 transition"
                 >
                   READ MORE
                 </Link>
@@ -146,7 +75,7 @@ export default function AboutPage() {
               transition={{ duration: 0.8 }}
               className="relative"
             >
-              <div className="absolute -inset-1 bg-gradient-to-r from-blue-600 to-purple-600 rounded-[2rem] blur opacity-40"></div>
+              <div className="absolute -inset-1 bg-linear-to-r from-blue-600 to-purple-600 rounded-[2rem] blur opacity-40"></div>
 
               <div className="relative bg-white/10 backdrop-blur-2xl border border-white/10 rounded-[2rem] p-6 shadow-2xl overflow-hidden">
                 <Image
@@ -181,7 +110,7 @@ export default function AboutPage() {
             </div>
 
             <div className="relative">
-              <div className="absolute -inset-1 bg-gradient-to-r from-purple-600 to-pink-600 rounded-[2rem] blur opacity-40"></div>
+              <div className="absolute -inset-1 bg-linear-to-r from-purple-600 to-pink-600 rounded-[2rem] blur opacity-40"></div>
 
               <div className="relative bg-white/10 backdrop-blur-2xl border border-white/10 rounded-[2rem] p-8 shadow-2xl">
                 <Image
@@ -219,7 +148,7 @@ export default function AboutPage() {
                     whileHover={{ y: -10 }}
                     className="bg-white/10 backdrop-blur-xl border border-white/10 rounded-3xl p-8 shadow-2xl text-center"
                   >
-                    <div className="w-20 h-20 mx-auto rounded-3xl bg-gradient-to-r from-blue-600 to-purple-600 flex items-center justify-center mb-6 shadow-xl">
+                    <div className="w-20 h-20 mx-auto rounded-3xl bg-linear-to-r from-blue-600 to-purple-600 flex items-center justify-center mb-6 shadow-xl">
                       <Icon size={40} />
                     </div>
 

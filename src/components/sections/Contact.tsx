@@ -1,30 +1,106 @@
 "use client";
 
 import Navbar from "@/components/layout/Navbar";
-import Footer from "@/components/layout/Footer";
 
 import { motion } from "framer-motion";
+import { useState } from "react";
+
+interface FormData {
+  fullName: string;
+  email: string;
+  message: string;
+}
+
+interface Errors {
+  fullName?: string;
+  email?: string;
+  message?: string;
+}
 
 export default function ContactPage() {
+  const [formData, setFormData] = useState<FormData>({
+    fullName: "",
+    email: "",
+    message: "",
+  });
+
+  const [errors, setErrors] = useState<Errors>({});
+  const [success, setSuccess] = useState("");
+
+  // Handle Change
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+  ) => {
+    const { name, value } = e.target;
+
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
+
+  // Validation
+  const validate = () => {
+    const newErrors: Errors = {};
+
+    if (!formData.fullName.trim()) {
+      newErrors.fullName = "Full name is required";
+    }
+
+    if (!formData.email.trim()) {
+      newErrors.email = "Email is required";
+    } else if (
+      !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(formData.email)
+    ) {
+      newErrors.email = "Invalid email address";
+    }
+
+    if (!formData.message.trim()) {
+      newErrors.message = "Message is required";
+    }
+
+    setErrors(newErrors);
+
+    return Object.keys(newErrors).length === 0;
+  };
+
+  // Submit
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+
+    if (validate()) {
+      console.log("Submitted:", formData);
+
+      setSuccess("Message submitted successfully!");
+
+      setFormData({
+        fullName: "",
+        email: "",
+        message: "",
+      });
+
+      setErrors({});
+    }
+  };
+
   return (
     <>
       <Navbar />
 
-      <main className="min-h-screen overflow-x-hidden bg-gradient-to-br from-black via-slate-950 to-slate-900 text-white">
+      <main className="min-h-screen overflow-x-hidden bg-linear-to-br from-black via-slate-950 to-slate-900 text-white">
         {/* Hero Section */}
         <section className="pt-28 md:pt-32 pb-20 px-4 sm:px-6 lg:px-8">
           <div className="max-w-7xl mx-auto">
-            <div className="grid grid-cols-1 xl:grid-cols-2 gap-14 xl:gap-20 items-start">
+            <div className="grid grid-cols-1 xl:grid-cols-2 gap-10 xl:gap-16 items-center">
               {/* LEFT CONTENT */}
               <motion.div
                 initial={{ opacity: 0, x: -40 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.7 }}
-                className="pt-4 xl:pt-10"
               >
                 {/* Badge */}
                 <div className="inline-flex items-center px-6 py-3 rounded-full bg-white/5 border border-cyan-500/20 backdrop-blur-xl mb-8">
-                  <span className="text-xl sm:text-2xl font-bold tracking-[0.25em] uppercase bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent">
+                  <span className="text-xl sm:text-2xl font-bold tracking-[0.25em] uppercase bg-linear-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent">
                     Contact Us
                   </span>
                 </div>
@@ -38,13 +114,14 @@ export default function ContactPage() {
 
                 {/* Description */}
                 <p className="text-gray-300 text-lg leading-relaxed max-w-2xl">
-                  Contact our expert team to book a demo, ask questions, or
-                  discover how our innovative digital solutions can help your
-                  business grow securely and efficiently.
+                  Contact our expert team to discuss your project ideas,
+                  business requirements, or innovative digital transformation
+                  solutions.
                 </p>
 
                 {/* Info Cards */}
                 <div className="mt-12 grid grid-cols-1 sm:grid-cols-2 gap-5">
+                  {/* Email */}
                   <div className="bg-white/5 border border-white/10 rounded-3xl p-6 backdrop-blur-xl">
                     <h3 className="text-2xl font-semibold mb-3">
                       Email Support
@@ -53,6 +130,7 @@ export default function ContactPage() {
                     <p className="text-gray-400">support@nexora.com</p>
                   </div>
 
+                  {/* Call */}
                   <div className="bg-white/5 border border-white/10 rounded-3xl p-6 backdrop-blur-xl">
                     <h3 className="text-2xl font-semibold mb-3">Call Us</h3>
 
@@ -66,128 +144,130 @@ export default function ContactPage() {
                 initial={{ opacity: 0, x: 40 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.7 }}
-                className="w-full bg-black/60 backdrop-blur-2xl border border-white/10 rounded-[2rem] p-6 sm:p-8 lg:p-10 shadow-2xl"
+                className="w-full max-w-2xl bg-white text-black rounded-sm p-8 md:p-12 shadow-2xl"
               >
-                {/* Form Heading */}
-                <h2 className="text-4xl md:text-5xl font-bold mb-10">
-                  Register Now
+                {/* Heading */}
+                <h2 className="text-3xl md:text-4xl font-semibold mb-10">
+                  Send Message
                 </h2>
 
-                <form className="space-y-6">
-                  {/* Name Row */}
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                {/* Form */}
+                <form onSubmit={handleSubmit} className="space-y-10">
+                  {/* Full Name */}
+                  <div>
                     <input
                       type="text"
-                      placeholder="First Name"
-                      className="w-full px-5 py-4 rounded-2xl bg-white text-black outline-none"
+                      name="fullName"
+                      value={formData.fullName}
+                      onChange={handleChange}
+                      placeholder="Full Name"
+                      className="
+                        w-full
+                        border-b-2
+                        border-gray-700
+                        bg-transparent
+                        py-3
+                        outline-none
+                        text-lg
+                        placeholder:text-gray-500
+                        focus:border-cyan-500
+                        transition duration-300
+                      "
                     />
 
-                    <input
-                      type="text"
-                      placeholder="Last Name"
-                      className="w-full px-5 py-4 rounded-2xl bg-white text-black outline-none"
-                    />
+                    {errors.fullName && (
+                      <p className="text-red-500 text-sm mt-2">
+                        {errors.fullName}
+                      </p>
+                    )}
                   </div>
 
-                  {/* Contact Row */}
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                  {/* Email */}
+                  <div>
                     <input
                       type="email"
-                      placeholder="Email Address"
-                      className="w-full px-5 py-4 rounded-2xl bg-white text-black outline-none"
+                      name="email"
+                      value={formData.email}
+                      onChange={handleChange}
+                      placeholder="Email"
+                      className="
+                        w-full
+                        border-b-2
+                        border-gray-700
+                        bg-transparent
+                        py-3
+                        outline-none
+                        text-lg
+                        placeholder:text-gray-500
+                        focus:border-cyan-500
+                        transition duration-300
+                      "
                     />
 
-                    <input
-                      type="text"
-                      placeholder="Phone Number"
-                      className="w-full px-5 py-4 rounded-2xl bg-white text-black outline-none"
-                    />
+                    {errors.email && (
+                      <p className="text-red-500 text-sm mt-2">
+                        {errors.email}
+                      </p>
+                    )}
                   </div>
-
-                  {/* Company */}
-                  <input
-                    type="text"
-                    placeholder="Company Name"
-                    className="w-full px-5 py-4 rounded-2xl bg-white text-black outline-none"
-                  />
-
-                  {/* Service */}
-                  <select className="w-full px-5 py-4 rounded-2xl bg-white text-black outline-none">
-                    <option>Select Service</option>
-                    <option>Web Development</option>
-                    <option>Mobile App Development</option>
-                    <option>Cloud Solutions</option>
-                    <option>Cyber Security</option>
-                    <option>UI/UX Design</option>
-                  </select>
 
                   {/* Message */}
-                  <textarea
-                    rows={6}
-                    placeholder="Write your message..."
-                    className="w-full px-5 py-4 rounded-2xl bg-white text-black outline-none resize-none"
-                  />
+                  <div>
+                    <textarea
+                      rows={4}
+                      name="message"
+                      value={formData.message}
+                      onChange={handleChange}
+                      placeholder="Type your Message..."
+                      className="
+                        w-full
+                        border-b-2
+                        border-gray-700
+                        bg-transparent
+                        py-3
+                        outline-none
+                        resize-none
+                        text-lg
+                        placeholder:text-gray-500
+                        focus:border-cyan-500
+                        transition duration-300
+                      "
+                    />
 
-                  {/* Checkbox */}
-                  <div className="flex items-start gap-3">
-                    <input type="checkbox" className="mt-1 w-5 h-5" />
-
-                    <p className="text-gray-300 text-sm leading-relaxed">
-                      I agree to receive communications regarding products,
-                      updates, and services.
-                    </p>
+                    {errors.message && (
+                      <p className="text-red-500 text-sm mt-2">
+                        {errors.message}
+                      </p>
+                    )}
                   </div>
 
-                  {/* Submit */}
+                  {/* Success */}
+                  {success && (
+                    <p className="text-green-600 font-medium">{success}</p>
+                  )}
+
+                  {/* Button */}
                   <button
                     type="submit"
-                    className="w-full py-4 rounded-2xl bg-gradient-to-r from-cyan-500 to-blue-600 text-lg font-semibold hover:scale-[1.02] transition duration-300 shadow-xl"
+                    className="
+                      bg-cyan-500
+                      hover:bg-cyan-400
+                      text-white
+                      px-10
+                      py-3
+                      text-lg
+                      font-medium
+                      transition duration-300
+                      shadow-md
+                    "
                   >
-                    Submit Request
+                    Send
                   </button>
                 </form>
               </motion.div>
             </div>
           </div>
         </section>
-
-        {/* Extra Info */}
-        <section className="pb-20 px-4 sm:px-6 lg:px-8">
-          <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-6">
-            {/* Office */}
-            <div className="bg-white/5 border border-white/10 rounded-3xl p-8 backdrop-blur-xl">
-              <h3 className="text-2xl font-semibold mb-4">Office</h3>
-
-              <p className="text-gray-400 leading-relaxed">
-                San Francisco, California
-                <br />
-                United States
-              </p>
-            </div>
-
-            {/* Business Hours */}
-            <div className="bg-white/5 border border-white/10 rounded-3xl p-8 backdrop-blur-xl">
-              <h3 className="text-2xl font-semibold mb-4">Business Hours</h3>
-
-              <p className="text-gray-400 leading-relaxed">
-                Monday - Friday
-                <br />
-                9:00 AM - 6:00 PM
-              </p>
-            </div>
-
-            {/* Support */}
-            <div className="bg-white/5 border border-white/10 rounded-3xl p-8 backdrop-blur-xl">
-              <h3 className="text-2xl font-semibold mb-4">Support</h3>
-
-              <p className="text-gray-400 leading-relaxed">
-                24/7 Customer Assistance
-                <br />
-                Available Worldwide
-              </p>
-            </div>
-          </div>
-        </section>       
       </main>
     </>
   );

@@ -1,84 +1,96 @@
+"use client";
 import Navbar from "@/components/layout/Navbar";
+import { feedbacks, services } from "@/data/services";
+import { Star } from "lucide-react";
 import Image from "next/image";
-import {
-  Globe,
-  Smartphone,
-  Cloud,
-  ShieldCheck,
-  Database,
-  MonitorSmartphone,
-  Star,
-} from "lucide-react";
-
-const services = [
-  {
-    title: "Web Development",
-    description:
-      "Modern, scalable, and high-performance websites tailored for businesses.",
-    icon: Globe,
-  },
-  {
-    title: "Mobile App Development",
-    description:
-      "Powerful Android and iOS applications with seamless user experience.",
-    icon: Smartphone,
-  },
-  {
-    title: "Cloud Solutions",
-    description:
-      "Secure cloud infrastructure and deployment solutions for enterprises.",
-    icon: Cloud,
-  },
-  {
-    title: "Cyber Security",
-    description:
-      "Protect your business with advanced cybersecurity and monitoring systems.",
-    icon: ShieldCheck,
-  },
-  {
-    title: "Database Management",
-    description:
-      "Efficient database architecture, optimization, and maintenance services.",
-    icon: Database,
-  },
-  {
-    title: "UI/UX Design",
-    description:
-      "Beautiful and intuitive designs that improve customer engagement.",
-    icon: MonitorSmartphone,
-  },
-];
-
-const feedbacks = [
-  {
-    name: "Michael Johnson",
-    role: "CEO, TechNova",
-    image: "/client1.jpeg",
-    review:
-      "NEXORA transformed our business with an exceptional web platform. Their team is highly professional and innovative.",
-  },
-  {
-    name: "Sarah Williams",
-    role: "Founder, Bright Solutions",
-    image: "/client2.jpeg",
-    review:
-      "Their mobile app development service exceeded our expectations. Highly recommended for startups and enterprises.",
-  },
-  {
-    name: "David Brown",
-    role: "Manager, CloudSync",
-    image: "/client3.jpeg",
-    review:
-      "Outstanding support and cloud solutions. Our systems are now faster, secure, and scalable.",
-  },
-];
+import { useState } from "react";
 
 export default function ServicesPage() {
+  const [formData, setFormData] = useState({
+    fullName: "",
+    email: "",
+    message: "",
+  });
+
+  const [errors, setErrors] = useState({
+    fullName: "",
+    email: "",
+    message: "",
+  });
+
+  const [success, setSuccess] = useState("");
+
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+  ) => {
+    const { name, value } = e.target;
+
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
+
+  const validate = () => {
+    let valid = true;
+
+    const newErrors = {
+      fullName: "",
+      email: "",
+      message: "",
+    };
+
+    if (!formData.fullName.trim()) {
+      newErrors.fullName = "Full name is required";
+      valid = false;
+    }
+
+    if (!formData.email.trim()) {
+      newErrors.email = "Email is required";
+      valid = false;
+    } else if (
+      !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(formData.email)
+    ) {
+      newErrors.email = "Invalid email address";
+      valid = false;
+    }
+
+    if (!formData.message.trim()) {
+      newErrors.message = "Message is required";
+      valid = false;
+    }
+
+    setErrors(newErrors);
+
+    return valid;
+  };
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+
+    if (validate()) {
+      console.log("Submitted Values:", formData);
+
+      setSuccess("Message submitted successfully!");
+
+      setFormData({
+        fullName: "",
+        email: "",
+        message: "",
+      });
+
+      setErrors({
+        fullName: "",
+        email: "",
+        message: "",
+      });
+    }
+  };
   return (
     <>
       <Navbar />
 
-      <main className="bg-gradient-to-br from-slate-950 via-blue-950 to-purple-950 min-h-screen text-white">
+      <main className="bg-linear-to-br from-slate-950 via-blue-950 to-purple-950 min-h-screen text-white">
         {/* Hero Section */}
         <section className="pt-32 md:pt-40 pb-20 md:pb-24 px-4 sm:px-6 text-center max-w-6xl mx-auto overflow-hidden">
           <h1 className="text-5xl md:text-7xl font-extrabold leading-tight mb-8">
@@ -96,9 +108,9 @@ export default function ServicesPage() {
           <div className="mt-20 grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
             {/* Team Illustration Card */}
             <div className="relative group">
-              <div className="absolute -inset-1 bg-gradient-to-r from-blue-600 to-purple-600 rounded-[2rem] blur opacity-40 group-hover:opacity-70 transition duration-500"></div>
+              <div className="absolute -inset-1 bg-linear-to-r from-blue-600 to-purple-600 rounded-4xl blur opacity-40 group-hover:opacity-70 transition duration-500"></div>
 
-              <div className="relative bg-white/10 backdrop-blur-2xl border border-white/10 rounded-[2rem] p-6 shadow-2xl overflow-hidden">
+              <div className="relative bg-white/10 backdrop-blur-2xl border border-white/10 rounded-4xl p-6 shadow-2xl overflow-hidden">
                 <div className="absolute top-0 right-0 w-40 h-40 bg-purple-500/20 rounded-full blur-3xl"></div>
                 <div className="absolute bottom-0 left-0 w-40 h-40 bg-blue-500/20 rounded-full blur-3xl"></div>
 
@@ -126,9 +138,9 @@ export default function ServicesPage() {
 
             {/* Google Map Card */}
             <div className="relative group h-full">
-              <div className="absolute -inset-1 bg-gradient-to-r from-purple-600 to-pink-600 rounded-[2rem] blur opacity-40 group-hover:opacity-70 transition duration-500"></div>
+              <div className="absolute -inset-1 bg-linear-to-r from-purple-600 to-pink-600 rounded-4xl blur opacity-40 group-hover:opacity-70 transition duration-500"></div>
 
-              <div className="relative bg-white/10 backdrop-blur-2xl border border-white/10 rounded-[2rem] p-6 shadow-2xl h-full overflow-hidden">
+              <div className="relative bg-white/10 backdrop-blur-2xl border border-white/10 rounded-4xl p-6 shadow-2xl h-full overflow-hidden">
                 <div className="flex items-center justify-between mb-6">
                   <div>
                     <h3 className="text-3xl font-bold">Visit Our Office</h3>
@@ -138,7 +150,7 @@ export default function ServicesPage() {
                     </p>
                   </div>
 
-                  <div className="w-14 h-14 rounded-2xl bg-gradient-to-r from-purple-600 to-pink-600 flex items-center justify-center shadow-xl text-2xl">
+                  <div className="w-14 h-14 rounded-2xl bg-linear-to-r from-purple-600 to-pink-600 flex items-center justify-center shadow-xl text-2xl">
                     📍
                   </div>
                 </div>
@@ -198,7 +210,7 @@ export default function ServicesPage() {
                 >
                   {/* Icon + Title */}
                   <div className="flex items-center gap-4 mb-4">
-                    <div className="w-14 h-14 rounded-2xl bg-gradient-to-r from-blue-600 to-purple-600 flex items-center justify-center shadow-lg shrink-0">
+                    <div className="w-14 h-14 rounded-2xl bg-linear-to-r from-blue-600 to-purple-600 flex items-center justify-center shadow-lg shrink-0">
                       <Icon size={28} />
                     </div>
 
@@ -220,7 +232,8 @@ export default function ServicesPage() {
         {/* Contact Section */}
         <section className="py-24 px-6">
           <div className="max-w-6xl mx-auto">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-14 items-center">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+              {/* Left Side */}
               <div>
                 <h2 className="text-5xl md:text-6xl font-extrabold leading-tight mb-8">
                   Get in touch.
@@ -228,13 +241,13 @@ export default function ServicesPage() {
 
                 <p className="text-xl text-gray-300 leading-relaxed max-w-xl">
                   Fill out the form and our team will get back to you as soon as
-                  we can!
+                  possible.
                 </p>
 
-                <div className="mt-10 space-y-8">
+                <div className="mt-10">
                   <Image
                     src="/contact-illustration.jpeg"
-                    alt="Contact Us"
+                    alt="Contact"
                     width={500}
                     height={500}
                     className="rounded-3xl shadow-2xl border border-white/10"
@@ -242,49 +255,124 @@ export default function ServicesPage() {
                 </div>
               </div>
 
-              <div className="bg-white/10 backdrop-blur-xl border border-white/10 rounded-3xl p-10 shadow-2xl">
-                <form className="space-y-6">
-                  <div>
-                    <label className="block text-sm text-gray-300 mb-2">
-                      Full Name
-                    </label>
+              {/* Form */}
+              <div className="bg-white rounded-sm p-10 shadow-2xl">
+                <h3 className="text-4xl font-bold text-gray-900 mb-10">
+                  Send Message
+                </h3>
 
+                <form onSubmit={handleSubmit} className="space-y-8">
+                  {/* Full Name */}
+                  <div>
                     <input
                       type="text"
-                      placeholder="Enter your name"
-                      className="w-full px-5 py-4 rounded-2xl bg-white/10 border border-white/10 focus:outline-none focus:border-purple-500 text-white placeholder:text-gray-400"
+                      name="fullName"
+                      value={formData.fullName}
+                      onChange={handleChange}
+                      placeholder="Full Name"
+                      className="
+                w-full
+                bg-transparent
+                border-0
+                border-b-2
+                border-gray-400
+                py-3
+                text-gray-900
+                placeholder:text-gray-500
+                focus:outline-none
+                focus:border-cyan-500
+                transition
+              "
                     />
+
+                    {errors.fullName && (
+                      <p className="text-red-500 text-sm mt-2">
+                        {errors.fullName}
+                      </p>
+                    )}
                   </div>
 
+                  {/* Email */}
                   <div>
-                    <label className="block text-sm text-gray-300 mb-2">
-                      Email Address
-                    </label>
-
                     <input
                       type="email"
-                      placeholder="Enter your email"
-                      className="w-full px-5 py-4 rounded-2xl bg-white/10 border border-white/10 focus:outline-none focus:border-purple-500 text-white placeholder:text-gray-400"
+                      name="email"
+                      value={formData.email}
+                      onChange={handleChange}
+                      placeholder="Email"
+                      className="
+                w-full
+                bg-transparent
+                border-0
+                border-b-2
+                border-gray-400
+                py-3
+                text-gray-900
+                placeholder:text-gray-500
+                focus:outline-none
+                focus:border-cyan-500
+                transition
+              "
                     />
+
+                    {errors.email && (
+                      <p className="text-red-500 text-sm mt-2">
+                        {errors.email}
+                      </p>
+                    )}
                   </div>
 
+                  {/* Message */}
                   <div>
-                    <label className="block text-sm text-gray-300 mb-2">
-                      Message
-                    </label>
-
                     <textarea
-                      rows={5}
-                      placeholder="Write your message..."
-                      className="w-full px-5 py-4 rounded-2xl bg-white/10 border border-white/10 focus:outline-none focus:border-purple-500 text-white placeholder:text-gray-400"
-                    ></textarea>
+                      rows={4}
+                      name="message"
+                      value={formData.message}
+                      onChange={handleChange}
+                      placeholder="Type your Message..."
+                      className="
+                w-full
+                bg-transparent
+                border-0
+                border-b-2
+                border-gray-400
+                py-3
+                resize-none
+                text-gray-900
+                placeholder:text-gray-500
+                focus:outline-none
+                focus:border-cyan-500
+                transition
+              "
+                    />
+
+                    {errors.message && (
+                      <p className="text-red-500 text-sm mt-2">
+                        {errors.message}
+                      </p>
+                    )}
                   </div>
 
+                  {/* Success */}
+                  {success && (
+                    <p className="text-green-600 font-medium">{success}</p>
+                  )}
+
+                  {/* Button */}
                   <button
                     type="submit"
-                    className="w-full py-4 rounded-2xl bg-gradient-to-r from-blue-600 to-purple-600 font-semibold text-lg hover:scale-105 transition duration-300 shadow-xl"
+                    className="
+              bg-cyan-500
+              hover:bg-cyan-600
+              text-white
+              px-10
+              py-3
+              font-semibold
+              transition
+              shadow-lg
+            "
                   >
-                    Send Message
+                    Send
                   </button>
                 </form>
               </div>

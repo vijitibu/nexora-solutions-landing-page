@@ -1,16 +1,119 @@
 "use client";
 
+import { useState } from "react";
+
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 
 import { motion } from "framer-motion";
 
+import { serviceOptions } from "@/data/services";
+
 export default function ContactPage() {
+  const [formData, setFormData] = useState({
+    firstName: "",
+    lastName: "",
+    email: "",
+    phone: "",
+    company: "",
+    service: "",
+    message: "",
+    agree: false,
+  });
+
+  const [errors, setErrors] = useState<Record<string, string>>({});
+
+  // Handle Change
+  const handleChange = (
+    e: React.ChangeEvent<
+      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
+    >,
+  ) => {
+    const { name, value, type } = e.target;
+
+    setFormData((prev) => ({
+      ...prev,
+      [name]:
+        type === "checkbox" ? (e.target as HTMLInputElement).checked : value,
+    }));
+  };
+
+  // Validation
+  const validate = () => {
+    const newErrors: Record<string, string> = {};
+
+    if (!formData.firstName.trim()) {
+      newErrors.firstName = "First name is required";
+    }
+
+    if (!formData.lastName.trim()) {
+      newErrors.lastName = "Last name is required";
+    }
+
+    if (!formData.email.trim()) {
+      newErrors.email = "Email is required";
+    } else if (
+      !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(formData.email)
+    ) {
+      newErrors.email = "Invalid email address";
+    }
+
+    if (!formData.phone.trim()) {
+      newErrors.phone = "Phone number is required";
+    }
+
+    if (!formData.company.trim()) {
+      newErrors.company = "Company name is required";
+    }
+
+    if (!formData.service) {
+      newErrors.service = "Please select a service";
+    }
+
+    if (!formData.message.trim()) {
+      newErrors.message = "Message is required";
+    }
+
+    if (!formData.agree) {
+      newErrors.agree = "Please accept the agreement";
+    }
+
+    setErrors(newErrors);
+
+    return Object.keys(newErrors).length === 0;
+  };
+
+  // Submit
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+
+    if (validate()) {
+      console.log("Submitted Values:", formData);
+
+      alert("✅ Form submitted successfully!");
+
+      setFormData({
+        firstName: "",
+        lastName: "",
+        email: "",
+        phone: "",
+        company: "",
+        service: "",
+        message: "",
+        agree: false,
+      });
+
+      setErrors({});
+    } else {
+      alert("❌ Please fill all required fields correctly.");
+    }
+  };
+
   return (
     <>
       <Navbar />
 
-      <main className="min-h-screen overflow-x-hidden bg-gradient-to-br from-black via-slate-950 to-slate-900 text-white">
+      <main className="min-h-screen overflow-x-hidden bg-linear-to-br from-black via-slate-950 to-slate-900 text-white">
         {/* Hero Section */}
         <section className="pt-28 md:pt-32 pb-20 px-4 sm:px-6 lg:px-8">
           <div className="max-w-7xl mx-auto">
@@ -66,82 +169,347 @@ export default function ContactPage() {
                 initial={{ opacity: 0, x: 40 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.7 }}
-                className="w-full bg-black/60 backdrop-blur-2xl border border-white/10 rounded-[2rem] p-6 sm:p-8 lg:p-10 shadow-2xl"
+                className="w-full bg-black/60 backdrop-blur-2xl border border-white/10 rounded-4xl p-6 sm:p-8 lg:p-10 shadow-2xl"
               >
-                {/* Form Heading */}
+                {/* Heading */}
                 <h2 className="text-4xl md:text-5xl font-bold mb-10">
                   Register Now
                 </h2>
 
-                <form className="space-y-6">
+                {/* FORM */}
+                <form onSubmit={handleSubmit} className="space-y-7">
                   {/* Name Row */}
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-                    <input
-                      type="text"
-                      placeholder="First Name"
-                      className="w-full px-5 py-4 rounded-2xl bg-white text-black outline-none"
-                    />
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+                    {/* First Name */}
+                    <div>
+                      <label className="block text-sm font-medium text-gray-300 mb-2">
+                        First Name
+                      </label>
 
-                    <input
-                      type="text"
-                      placeholder="Last Name"
-                      className="w-full px-5 py-4 rounded-2xl bg-white text-black outline-none"
-                    />
+                      <input
+                        type="text"
+                        name="firstName"
+                        value={formData.firstName}
+                        onChange={handleChange}
+                        placeholder="John"
+                        className=" w-full
+                                  px-5
+                                  py-4
+                                  rounded-xl
+                                  bg-white/8
+                                  border
+                                  border-white/10
+                                  backdrop-blur-md
+                                  text-white
+                                  placeholder:text-gray-500
+                                  focus:outline-none
+                                  focus:border-cyan-400
+                                  focus:ring-2
+                                  focus:ring-cyan-500/20
+                                  transition-all
+                                  duration-300
+        "
+                      />
+
+                      {errors.firstName && (
+                        <p className="text-red-400 text-sm mt-2">
+                          {errors.firstName}
+                        </p>
+                      )}
+                    </div>
+
+                    {/* Last Name */}
+                    <div>
+                      <label className="block text-sm font-medium text-gray-300 mb-2">
+                        Last Name
+                      </label>
+
+                      <input
+                        type="text"
+                        name="lastName"
+                        value={formData.lastName}
+                        onChange={handleChange}
+                        placeholder="Doe"
+                        className="
+          w-full
+          px-5
+          py-4
+          rounded-xl
+          bg-white/8
+          border
+          border-white/10
+          backdrop-blur-md
+          text-white
+          placeholder:text-gray-500
+          focus:outline-none
+          focus:border-cyan-400
+          focus:ring-2
+          focus:ring-cyan-500/20
+          transition-all
+          duration-300
+        "
+                      />
+
+                      {errors.lastName && (
+                        <p className="text-red-400 text-sm mt-2">
+                          {errors.lastName}
+                        </p>
+                      )}
+                    </div>
                   </div>
 
                   {/* Contact Row */}
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-                    <input
-                      type="email"
-                      placeholder="Email Address"
-                      className="w-full px-5 py-4 rounded-2xl bg-white text-black outline-none"
-                    />
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+                    {/* Email */}
+                    <div>
+                      <label className="block text-sm font-medium text-gray-300 mb-2">
+                        Email Address
+                      </label>
 
-                    <input
-                      type="text"
-                      placeholder="Phone Number"
-                      className="w-full px-5 py-4 rounded-2xl bg-white text-black outline-none"
-                    />
+                      <input
+                        type="email"
+                        name="email"
+                        value={formData.email}
+                        onChange={handleChange}
+                        placeholder="john@example.com"
+                        className="
+          w-full
+          px-5
+          py-4
+          rounded-xl
+          bg-white/8
+          border
+          border-white/10
+          backdrop-blur-md
+          text-white
+          placeholder:text-gray-500
+          focus:outline-none
+          focus:border-cyan-400
+          focus:ring-2
+          focus:ring-cyan-500/20
+          transition-all
+          duration-300
+        "
+                      />
+
+                      {errors.email && (
+                        <p className="text-red-400 text-sm mt-2">
+                          {errors.email}
+                        </p>
+                      )}
+                    </div>
+
+                    {/* Phone */}
+                    <div>
+                      <label className="block text-sm font-medium text-gray-300 mb-2">
+                        Phone Number
+                      </label>
+
+                      <input
+                        type="text"
+                        name="phone"
+                        value={formData.phone}
+                        onChange={handleChange}
+                        placeholder="+1 234 567 890"
+                        className="
+          w-full
+          px-5
+          py-4
+          rounded-xl
+          bg-white/8
+          border
+          border-white/10
+          backdrop-blur-md
+          text-white
+          placeholder:text-gray-500
+          focus:outline-none
+          focus:border-cyan-400
+          focus:ring-2
+          focus:ring-cyan-500/20
+          transition-all
+          duration-300
+        "
+                      />
+
+                      {errors.phone && (
+                        <p className="text-red-400 text-sm mt-2">
+                          {errors.phone}
+                        </p>
+                      )}
+                    </div>
                   </div>
 
                   {/* Company */}
-                  <input
-                    type="text"
-                    placeholder="Company Name"
-                    className="w-full px-5 py-4 rounded-2xl bg-white text-black outline-none"
-                  />
+                  <div>
+                    <label className="block text-sm font-medium text-gray-300 mb-2">
+                      Company Name
+                    </label>
+
+                    <input
+                      type="text"
+                      name="company"
+                      value={formData.company}
+                      onChange={handleChange}
+                      placeholder="NEXORA Solutions"
+                      className="
+        w-full
+        px-5
+        py-4
+        rounded-xl
+        bg-white/8
+        border
+        border-white/10
+        backdrop-blur-md
+        text-white
+        placeholder:text-gray-500
+        focus:outline-none
+        focus:border-cyan-400
+        focus:ring-2
+        focus:ring-cyan-500/20
+        transition-all
+        duration-300
+      "
+                    />
+
+                    {errors.company && (
+                      <p className="text-red-400 text-sm mt-2">
+                        {errors.company}
+                      </p>
+                    )}
+                  </div>
 
                   {/* Service */}
-                  <select className="w-full px-5 py-4 rounded-2xl bg-white text-black outline-none">
-                    <option>Select Service</option>
-                    <option>Web Development</option>
-                    <option>Mobile App Development</option>
-                    <option>Cloud Solutions</option>
-                    <option>Cyber Security</option>
-                    <option>UI/UX Design</option>
-                  </select>
+                  <div>
+                    <label className="block text-sm font-medium text-gray-300 mb-2">
+                      Select Service
+                    </label>
+
+                    <select
+                      name="service"
+                      value={formData.service}
+                      onChange={handleChange}
+                      className="
+        w-full
+        px-5
+        py-4
+        rounded-xl
+        bg-white/8
+        border
+        border-white/10
+        backdrop-blur-md
+        text-white
+        focus:outline-none
+        focus:border-cyan-400
+        focus:ring-2
+        focus:ring-cyan-500/20
+        transition-all
+        duration-300
+      "
+                    >
+                      <option value="" className="text-black">
+                        Select Service
+                      </option>
+
+                      {serviceOptions.map((item) => (
+                        <option
+                          key={item.title}
+                          value={item.title}
+                          className="text-black"
+                        >
+                          {item.title}
+                        </option>
+                      ))}
+                    </select>
+
+                    {errors.service && (
+                      <p className="text-red-400 text-sm mt-2">
+                        {errors.service}
+                      </p>
+                    )}
+                  </div>
 
                   {/* Message */}
-                  <textarea
-                    rows={6}
-                    placeholder="Write your message..."
-                    className="w-full px-5 py-4 rounded-2xl bg-white text-black outline-none resize-none"
-                  />
+                  <div>
+                    <label className="block text-sm font-medium text-gray-300 mb-2">
+                      Message
+                    </label>
+
+                    <textarea
+                      rows={5}
+                      name="message"
+                      value={formData.message}
+                      onChange={handleChange}
+                      placeholder="Write your message..."
+                      className="
+        w-full
+        px-5
+        py-4
+        rounded-xl
+        bg-white/8
+        border
+        border-white/10
+        backdrop-blur-md
+        text-white
+        placeholder:text-gray-500
+        focus:outline-none
+        focus:border-cyan-400
+        focus:ring-2
+        focus:ring-cyan-500/20
+        transition-all
+        duration-300
+        resize-none
+      "
+                    />
+
+                    {errors.message && (
+                      <p className="text-red-400 text-sm mt-2">
+                        {errors.message}
+                      </p>
+                    )}
+                  </div>
 
                   {/* Checkbox */}
-                  <div className="flex items-start gap-3">
-                    <input type="checkbox" className="mt-1 w-5 h-5" />
+                  <div>
+                    <label className="flex items-start gap-3">
+                      <input
+                        type="checkbox"
+                        name="agree"
+                        checked={formData.agree}
+                        onChange={handleChange}
+                        className="mt-1 w-5 h-5 accent-cyan-500"
+                      />
 
-                    <p className="text-gray-300 text-sm leading-relaxed">
-                      I agree to receive communications regarding products,
-                      updates, and services.
-                    </p>
+                      <span className="text-gray-300 leading-relaxed text-sm">
+                        I agree to receive communications regarding products,
+                        services, and updates.
+                      </span>
+                    </label>
+
+                    {errors.agree && (
+                      <p className="text-red-400 text-sm mt-2">
+                        {errors.agree}
+                      </p>
+                    )}
                   </div>
 
                   {/* Submit */}
                   <button
                     type="submit"
-                    className="w-full py-4 rounded-2xl bg-gradient-to-r from-cyan-500 to-blue-600 text-lg font-semibold hover:scale-[1.02] transition duration-300 shadow-xl"
+                    className="
+      w-full
+      py-4
+      rounded-xl
+      bg-linear-to-r
+      from-cyan-500
+      to-blue-600
+      text-lg
+      font-semibold
+      hover:scale-[1.01]
+      hover:shadow-cyan-500/30
+      shadow-xl
+      transition-all
+      duration-300
+    "
                   >
                     Submit Request
                   </button>
@@ -151,10 +519,9 @@ export default function ContactPage() {
           </div>
         </section>
 
-        {/* Extra Info */}
+        {/* Bottom Info */}
         <section className="pb-20 px-4 sm:px-6 lg:px-8">
           <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-6">
-            {/* Office */}
             <div className="bg-white/5 border border-white/10 rounded-3xl p-8 backdrop-blur-xl">
               <h3 className="text-2xl font-semibold mb-4">Office</h3>
 
@@ -165,7 +532,6 @@ export default function ContactPage() {
               </p>
             </div>
 
-            {/* Business Hours */}
             <div className="bg-white/5 border border-white/10 rounded-3xl p-8 backdrop-blur-xl">
               <h3 className="text-2xl font-semibold mb-4">Business Hours</h3>
 
@@ -176,7 +542,6 @@ export default function ContactPage() {
               </p>
             </div>
 
-            {/* Support */}
             <div className="bg-white/5 border border-white/10 rounded-3xl p-8 backdrop-blur-xl">
               <h3 className="text-2xl font-semibold mb-4">Support</h3>
 
