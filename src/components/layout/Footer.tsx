@@ -43,7 +43,12 @@ export default function Footer() {
             >
               Services
             </Link>
-
+            <Link
+              href="/careers"
+              className="hover:text-white transition duration-300"
+            >
+              Careers
+            </Link>
             <Link
               href="/contact"
               className="hover:text-white transition duration-300"
