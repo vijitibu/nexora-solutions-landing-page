@@ -113,9 +113,9 @@ export default function ContactPage() {
     <>
       <Navbar />
 
-      <main className="min-h-screen overflow-x-hidden bg-linear-to-br from-black via-slate-950 to-slate-900 text-white">
+      <main className="overflow-x-hidden bg-linear-to-br from-black via-slate-950 to-slate-900 text-white">
         {/* Hero Section */}
-        <section className="pt-28 md:pt-32 pb-20 px-4 sm:px-6 lg:px-8">
+        <section className="pt-24 md:pt-28 pb-10 md:pb-16 px-4 sm:px-6 lg:px-8 overflow-hidden">
           <div className="max-w-7xl mx-auto">
             <div className="grid grid-cols-1 xl:grid-cols-2 gap-14 xl:gap-20 items-start">
               {/* LEFT CONTENT */}
@@ -126,8 +126,8 @@ export default function ContactPage() {
                 className="pt-4 xl:pt-10"
               >
                 {/* Badge */}
-                <div className="inline-flex items-center px-6 py-3 rounded-full bg-white/5 border border-cyan-500/20 backdrop-blur-xl mb-8">
-                  <span className="text-xl sm:text-2xl font-bold tracking-[0.25em] uppercase bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent">
+                <div className="inline-flex items-center px-6 py-6 rounded-full bg-white/5 border border-cyan-500/20 backdrop-blur-xl mb-8">
+                  <span className="text-xl sm:text-2xl font-bold tracking-[0.25em] uppercase bg-linear-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent">
                     Contact Us
                   </span>
                 </div>
@@ -553,9 +553,8 @@ export default function ContactPage() {
             </div>
           </div>
         </section>
-
-        <Footer />
       </main>
+      <Footer />
     </>
   );
 }

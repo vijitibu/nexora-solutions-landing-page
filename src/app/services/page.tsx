@@ -1,11 +1,21 @@
 "use client";
+
+import Link from "next/link";
 import Navbar from "@/components/layout/Navbar";
-import { feedbacks, services } from "@/data/services";
-import { Star } from "lucide-react";
+import Footer from "@/components/layout/Footer";
+
+import { feedbacks, serviceData } from "@/data/services";
+
+import { Star, ChevronLeft, ChevronRight } from "lucide-react";
+
 import Image from "next/image";
+
 import { useState } from "react";
 
 export default function ServicesPage() {
+  /* =========================
+     Contact Form State
+  ========================== */
   const [formData, setFormData] = useState({
     fullName: "",
     email: "",
@@ -20,6 +30,28 @@ export default function ServicesPage() {
 
   const [success, setSuccess] = useState("");
 
+  /* =========================
+     Services Slider State
+  ========================== */
+  const [startIndex, setStartIndex] = useState(0);
+
+  const visibleCards = 3;
+
+  const nextSlide = () => {
+    if (startIndex + visibleCards < serviceData.length) {
+      setStartIndex(startIndex + 1);
+    }
+  };
+
+  const prevSlide = () => {
+    if (startIndex > 0) {
+      setStartIndex(startIndex - 1);
+    }
+  };
+
+  /* =========================
+     Form Logic
+  ========================== */
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
   ) => {
@@ -42,21 +74,25 @@ export default function ServicesPage() {
 
     if (!formData.fullName.trim()) {
       newErrors.fullName = "Full name is required";
+
       valid = false;
     }
 
     if (!formData.email.trim()) {
       newErrors.email = "Email is required";
+
       valid = false;
     } else if (
       !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(formData.email)
     ) {
       newErrors.email = "Invalid email address";
+
       valid = false;
     }
 
     if (!formData.message.trim()) {
       newErrors.message = "Message is required";
+
       valid = false;
     }
 
@@ -86,12 +122,15 @@ export default function ServicesPage() {
       });
     }
   };
+
   return (
     <>
       <Navbar />
 
       <main className="bg-linear-to-br from-slate-950 via-blue-950 to-purple-950 min-h-screen text-white">
-        {/* Hero Section */}
+        {/* =========================================
+            HERO SECTION
+        ========================================== */}
         <section className="pt-32 md:pt-40 pb-20 md:pb-24 px-4 sm:px-6 text-center max-w-6xl mx-auto overflow-hidden">
           <h1 className="text-5xl md:text-7xl font-extrabold leading-tight mb-8">
             IT Services and Solutions
@@ -112,6 +151,7 @@ export default function ServicesPage() {
 
               <div className="relative bg-white/10 backdrop-blur-2xl border border-white/10 rounded-4xl p-6 shadow-2xl overflow-hidden">
                 <div className="absolute top-0 right-0 w-40 h-40 bg-purple-500/20 rounded-full blur-3xl"></div>
+
                 <div className="absolute bottom-0 left-0 w-40 h-40 bg-blue-500/20 rounded-full blur-3xl"></div>
 
                 <Image
@@ -136,7 +176,7 @@ export default function ServicesPage() {
               </div>
             </div>
 
-            {/* Google Map Card */}
+            {/* Office Card */}
             <div className="relative group h-full">
               <div className="absolute -inset-1 bg-linear-to-r from-purple-600 to-pink-600 rounded-4xl blur opacity-40 group-hover:opacity-70 transition duration-500"></div>
 
@@ -157,7 +197,7 @@ export default function ServicesPage() {
 
                 <div className="overflow-hidden rounded-3xl border border-white/10 shadow-xl">
                   <iframe
-                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3153.019506492208!2d-122.41941548468112!3d37.77492927975951!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x80858064dfb5c1d1%3A0x8c1f1c0f5f9b7c0!2sSan%20Francisco!5e0!3m2!1sen!2sus!4v1699999999999!5m2!1sen!2sus"
+                    src="https://maps.google.com/maps?q=San%20Francisco&t=&z=13&ie=UTF8&iwloc=&output=embed"
                     width="100%"
                     height="420"
                     style={{ border: 0 }}
@@ -167,69 +207,196 @@ export default function ServicesPage() {
                     className="rounded-3xl"
                   ></iframe>
                 </div>
-
-                <div className="mt-6 grid grid-cols-2 gap-4">
-                  <div className="bg-white/5 border border-white/10 rounded-2xl p-4 text-center">
-                    <h4 className="text-2xl font-bold text-blue-400">24/7</h4>
-                    <p className="text-gray-300 text-sm mt-1">
-                      Support Available
-                    </p>
-                  </div>
-
-                  <div className="bg-white/5 border border-white/10 rounded-2xl p-4 text-center">
-                    <h4 className="text-2xl font-bold text-purple-400">100+</h4>
-                    <p className="text-gray-300 text-sm mt-1">Global Clients</p>
-                  </div>
-                </div>
               </div>
             </div>
           </div>
         </section>
 
-        {/* Services Section */}
+        {/* =========================================
+            SERVICES SECTION
+        ========================================== */}
         <section className="py-14 md:py-24 px-4 sm:px-6 max-w-7xl mx-auto">
-          <div className="text-center mb-10 md:mb-16">
-            <h2 className="text-4xl md:text-5xl font-bold mb-4">
-              Services We Offer
-            </h2>
+          {/* Header */}
+          <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-8 mb-16">
+            <div>
+              <p className="text-cyan-400 uppercase tracking-[0.3em] font-semibold mb-4">
+                WHAT WE PROVIDE
+              </p>
 
-            <p className="text-gray-300 text-base md:text-lg max-w-2xl mx-auto">
-              Premium IT solutions designed for startups, enterprises, and
-              modern businesses.
-            </p>
+              <h2 className="text-5xl md:text-6xl font-extrabold tracking-tight mb-6 leading-tight">
+                Our Services
+              </h2>
+
+              <p className="text-gray-300 text-lg md:text-xl leading-relaxed max-w-2xl font-light">
+                Innovative digital solutions crafted to help businesses grow,
+                scale, and succeed in the modern digital world.
+              </p>
+            </div>
+
+            {/* Navigation Buttons */}
+            <div className="flex gap-5">
+              {/* Prev */}
+              <button
+                onClick={prevSlide}
+                disabled={startIndex === 0}
+                className="
+          group
+          w-14 h-14
+          rounded-full
+          bg-white/10
+          backdrop-blur-2xl
+          border border-white/10
+          flex items-center justify-center
+          text-white
+          hover:bg-cyan-500
+          hover:scale-110
+          transition-all duration-300
+          disabled:opacity-40
+          disabled:cursor-not-allowed
+          shadow-xl
+        "
+              >
+                <ChevronLeft
+                  size={24}
+                  className="group-hover:-translate-x-1 transition"
+                />
+              </button>
+
+              {/* Next */}
+              <button
+                onClick={nextSlide}
+                disabled={startIndex + visibleCards >= serviceData.length}
+                className="
+          group
+          w-14 h-14
+          rounded-full
+          bg-linear-to-r
+          from-cyan-500
+          to-purple-500
+          flex items-center justify-center
+          text-white
+          hover:scale-110
+          transition-all duration-300
+          disabled:opacity-40
+          disabled:cursor-not-allowed
+          shadow-xl
+        "
+              >
+                <ChevronRight
+                  size={24}
+                  className="group-hover:translate-x-1 transition"
+                />
+              </button>
+            </div>
           </div>
 
+          {/* Cards */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-10">
-            {services.map((service, index) => {
-              const Icon = service.icon;
+            {serviceData
+              .slice(startIndex, startIndex + visibleCards)
+              .map((service, index) => {
+                const Icon = service.icon;
 
-              return (
-                <div
-                  key={index}
-                  className="bg-white/10 backdrop-blur-xl border border-white/10 rounded-3xl p-5 md:p-8 md:hover:scale-105 transition duration-300 shadow-xl"
-                >
-                  {/* Icon + Title */}
-                  <div className="flex items-center gap-4 mb-4">
-                    <div className="w-14 h-14 rounded-2xl bg-linear-to-r from-blue-600 to-purple-600 flex items-center justify-center shadow-lg shrink-0">
-                      <Icon size={28} />
+                return (
+                  <Link
+                    href={`/services/${service.slug}`}
+                    key={index}
+                    className="
+              group
+              relative
+              bg-white/10
+              backdrop-blur-xl
+              border border-white/10
+              rounded-3xl
+              p-6 md:p-8
+              hover:-translate-y-3
+              hover:border-cyan-400/30
+              transition-all duration-500
+              shadow-[0_20px_80px_rgba(0,0,0,0.45)]
+              overflow-hidden
+            "
+                  >
+                    {/* Glow */}
+                    <div className="absolute inset-0 bg-linear-to-r from-cyan-500/0 via-cyan-500/5 to-purple-500/10 opacity-0 group-hover:opacity-100 transition duration-500" />
+
+                    {/* Blur Circle */}
+                    <div className="absolute -top-10 -right-10 w-40 h-40 bg-cyan-500/10 rounded-full blur-3xl group-hover:scale-150 transition duration-700" />
+
+                    {/* Icon + Title */}
+                    <div className="relative z-10 flex items-start gap-5 mb-8">
+                      <div
+                        className="
+                  w-20 h-20
+                  rounded-[1.7rem]
+                  bg-linear-to-br
+                  from-cyan-500/20
+                  to-purple-500/20
+                  border border-white/10
+                  flex items-center justify-center
+                  shadow-2xl
+                  shrink-0
+                  group-hover:rotate-6
+                  group-hover:scale-110
+                  transition duration-500
+                "
+                      >
+                        <Icon size={36} className="text-cyan-300" />
+                      </div>
+
+                      <h3 className="text-2xl md:text-3xl font-extrabold tracking-tight text-white leading-tight">
+                        {service.title}
+                      </h3>
                     </div>
 
-                    <h3 className="text-xl md:text-2xl font-bold leading-tight">
-                      {service.title}
-                    </h3>
-                  </div>
+                    {/* Description */}
+                    <p className="relative z-10 text-gray-300 leading-relaxed text-base md:text-lg font-light">
+                      {service.description}
+                    </p>
 
-                  {/* Description */}
-                  <p className="text-gray-300 leading-relaxed text-sm md:text-base">
-                    {service.description}
-                  </p>
-                </div>
-              );
-            })}
+                    {/* Footer */}
+                    <div className="relative z-10 mt-10 flex items-center justify-between">
+                      <span className="text-cyan-300 font-semibold text-lg tracking-wide">
+                        Learn More
+                      </span>
+
+                      <div
+                        className="
+                  group/btn
+                  w-14 h-14
+                  rounded-full
+                  bg-white/10
+                  border border-white/10
+                  flex items-center justify-center
+                  shadow-lg
+                  hover:bg-cyan-500
+                  transition duration-300
+                "
+                      >
+                        <span
+                          className="
+                    text-cyan-300
+                    group-hover/btn:text-white
+                    text-2xl
+                    group-hover/btn:translate-x-1
+                    transition
+                  "
+                        >
+                          →
+                        </span>
+                      </div>
+                    </div>
+
+                    {/* Bottom Border */}
+                    <div className="absolute bottom-0 left-0 h-1 w-0 group-hover:w-full bg-linear-to-r from-cyan-400 to-purple-500 transition-all duration-500" />
+                  </Link>
+                );
+              })}
           </div>
         </section>
 
-        {/* Contact Section */}
+        {/* =========================================
+            CONTACT SECTION
+        ========================================== */}
         <section className="py-24 px-6">
           <div className="max-w-6xl mx-auto">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
@@ -262,7 +429,6 @@ export default function ServicesPage() {
                 </h3>
 
                 <form onSubmit={handleSubmit} className="space-y-8">
-                  {/* Full Name */}
                   <div>
                     <input
                       type="text"
@@ -270,19 +436,7 @@ export default function ServicesPage() {
                       value={formData.fullName}
                       onChange={handleChange}
                       placeholder="Full Name"
-                      className="
-                w-full
-                bg-transparent
-                border-0
-                border-b-2
-                border-gray-400
-                py-3
-                text-gray-900
-                placeholder:text-gray-500
-                focus:outline-none
-                focus:border-cyan-500
-                transition
-              "
+                      className="w-full bg-transparent border-0 border-b-2 border-gray-400 py-3 text-gray-900 placeholder:text-gray-500 focus:outline-none focus:border-cyan-500 transition"
                     />
 
                     {errors.fullName && (
@@ -292,7 +446,6 @@ export default function ServicesPage() {
                     )}
                   </div>
 
-                  {/* Email */}
                   <div>
                     <input
                       type="email"
@@ -300,19 +453,7 @@ export default function ServicesPage() {
                       value={formData.email}
                       onChange={handleChange}
                       placeholder="Email"
-                      className="
-                w-full
-                bg-transparent
-                border-0
-                border-b-2
-                border-gray-400
-                py-3
-                text-gray-900
-                placeholder:text-gray-500
-                focus:outline-none
-                focus:border-cyan-500
-                transition
-              "
+                      className="w-full bg-transparent border-0 border-b-2 border-gray-400 py-3 text-gray-900 placeholder:text-gray-500 focus:outline-none focus:border-cyan-500 transition"
                     />
 
                     {errors.email && (
@@ -322,7 +463,6 @@ export default function ServicesPage() {
                     )}
                   </div>
 
-                  {/* Message */}
                   <div>
                     <textarea
                       rows={4}
@@ -330,20 +470,7 @@ export default function ServicesPage() {
                       value={formData.message}
                       onChange={handleChange}
                       placeholder="Type your Message..."
-                      className="
-                w-full
-                bg-transparent
-                border-0
-                border-b-2
-                border-gray-400
-                py-3
-                resize-none
-                text-gray-900
-                placeholder:text-gray-500
-                focus:outline-none
-                focus:border-cyan-500
-                transition
-              "
+                      className="w-full bg-transparent border-0 border-b-2 border-gray-400 py-3 resize-none text-gray-900 placeholder:text-gray-500 focus:outline-none focus:border-cyan-500 transition"
                     />
 
                     {errors.message && (
@@ -353,24 +480,13 @@ export default function ServicesPage() {
                     )}
                   </div>
 
-                  {/* Success */}
                   {success && (
                     <p className="text-green-600 font-medium">{success}</p>
                   )}
 
-                  {/* Button */}
                   <button
                     type="submit"
-                    className="
-              bg-cyan-500
-              hover:bg-cyan-600
-              text-white
-              px-10
-              py-3
-              font-semibold
-              transition
-              shadow-lg
-            "
+                    className="bg-cyan-500 hover:bg-cyan-600 text-white px-10 py-3 font-semibold transition shadow-lg"
                   >
                     Send
                   </button>
@@ -380,7 +496,9 @@ export default function ServicesPage() {
           </div>
         </section>
 
-        {/* Customer Feedback */}
+        {/* =========================================
+            CUSTOMER FEEDBACK
+        ========================================== */}
         <section className="py-24 px-6 bg-black/20">
           <div className="max-w-7xl mx-auto">
             <div className="text-center mb-16">
@@ -432,6 +550,8 @@ export default function ServicesPage() {
           </div>
         </section>
       </main>
+
+      <Footer />
     </>
   );
 }

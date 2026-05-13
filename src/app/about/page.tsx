@@ -75,9 +75,9 @@ export default function AboutPage() {
               transition={{ duration: 0.8 }}
               className="relative"
             >
-              <div className="absolute -inset-1 bg-linear-to-r from-blue-600 to-purple-600 rounded-[2rem] blur opacity-40"></div>
+              <div className="absolute -inset-1 bg-linear-to-r from-blue-600 to-purple-600 rounded-4xl blur opacity-40"></div>
 
-              <div className="relative bg-white/10 backdrop-blur-2xl border border-white/10 rounded-[2rem] p-6 shadow-2xl overflow-hidden">
+              <div className="relative bg-white/10 backdrop-blur-2xl border border-white/10 rounded-4xl p-6 shadow-2xl overflow-hidden">
                 <Image
                   src="/team-collaboration.jpeg"
                   alt="About Team"
@@ -110,9 +110,9 @@ export default function AboutPage() {
             </div>
 
             <div className="relative">
-              <div className="absolute -inset-1 bg-linear-to-r from-purple-600 to-pink-600 rounded-[2rem] blur opacity-40"></div>
+              <div className="absolute -inset-1 bg-linear-to-r from-purple-600 to-pink-600 rounded-4xl blur opacity-40"></div>
 
-              <div className="relative bg-white/10 backdrop-blur-2xl border border-white/10 rounded-[2rem] p-8 shadow-2xl">
+              <div className="relative bg-white/10 backdrop-blur-2xl border border-white/10 rounded-4xl p-8 shadow-2xl">
                 <Image
                   src="/who-we-are.jpeg"
                   alt="Who We Are"
@@ -236,7 +236,7 @@ export default function AboutPage() {
                   animate={{ opacity: 1, x: 0 }}
                   exit={{ opacity: 0, x: -100 }}
                   transition={{ duration: 0.5 }}
-                  className="bg-white/10 backdrop-blur-2xl border border-white/10 rounded-[2rem] p-10 shadow-2xl"
+                  className="bg-white/10 backdrop-blur-2xl border border-white/10 rounded-4xl p-10 shadow-2xl"
                 >
                   <Image
                     src={team[current].image}
