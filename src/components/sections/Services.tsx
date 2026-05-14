@@ -30,24 +30,40 @@ export default function Services() {
         {/* =========================================
             HEADER
         ========================================== */}
-        <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-8 mb-20">
-          <div>
-            <p className="text-cyan-400 uppercase tracking-[0.3em] font-semibold mb-4">
-              WHAT WE PROVIDE
-            </p>
+        <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-10 mb-20">
+          {/* Left Content */}
+          <div className="max-w-3xl">
+            {/* Label */}
+            <div className="inline-flex items-center gap-3 px-5 py-3 rounded-full bg-cyan-500/10 border border-cyan-400/20 backdrop-blur-xl shadow-lg mb-8">
+              {/* Pulse Dot */}
+              <div className="relative flex h-3 w-3">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-400 opacity-75"></span>
 
-            <h2 className="text-5xl md:text-6xl font-extrabold tracking-tight text-white mb-6 leading-tight">
-              Our Services
+                <span className="relative inline-flex rounded-full h-3 w-3 bg-cyan-400"></span>
+              </div>
+
+              <span className="text-cyan-300 uppercase tracking-[0.25em] text-sm md:text-base font-bold">
+                Our Services
+              </span>
+            </div>
+
+            {/* Heading */}
+            <h2 className="text-5xl md:text-7xl font-black tracking-tight leading-[1.05] text-white mb-7">
+              Smart Digital
+              <span className="block bg-linear-to-r from-cyan-300 via-blue-300 to-purple-400 bg-clip-text text-transparent">
+                Solutions
+              </span>
             </h2>
 
-            <p className="text-gray-300 text-lg md:text-xl leading-relaxed max-w-2xl font-light">
-              Innovative digital solutions crafted to help businesses grow,
-              scale, and succeed in the modern digital world.
+            {/* Description */}
+            <p className="text-gray-300 text-lg md:text-xl leading-relaxed font-light max-w-2xl">
+              We create modern websites, scalable applications, and digital
+              experiences for fast-growing businesses.
             </p>
           </div>
 
           {/* Navigation Buttons */}
-          <div className="flex gap-5">
+          <div className="flex items-center gap-5">
             {/* Prev */}
             <button
               onClick={prevSlide}
@@ -139,6 +155,7 @@ export default function Services() {
 
                   {/* Icon + Title */}
                   <div className="relative z-10 flex items-start gap-5 mb-8">
+                    {/* Icon Box */}
                     <div
                       className="
                         w-20 h-20
@@ -158,18 +175,20 @@ export default function Services() {
                       <Icon size={36} className="text-cyan-300" />
                     </div>
 
-                    <h3 className="text-2xl md:text-3xl font-extrabold tracking-tight text-white leading-tight">
-                      {service.title}
-                    </h3>
+                    {/* Title + Desc */}
+                    <div>
+                      <h3 className="text-2xl md:text-3xl font-extrabold tracking-tight text-white leading-tight mb-3">
+                        {service.title}
+                      </h3>
+
+                      <p className="text-gray-300 leading-relaxed text-base font-light">
+                        {service.description}
+                      </p>
+                    </div>
                   </div>
 
-                  {/* Description */}
-                  <p className="relative z-10 text-gray-300 leading-relaxed text-base md:text-lg font-light">
-                    {service.description}
-                  </p>
-
                   {/* Footer */}
-                  <div className="relative z-10 mt-10 flex items-center justify-between">
+                  <div className="relative z-10 mt-8 flex items-center justify-between">
                     <span className="text-cyan-300 font-semibold text-lg tracking-wide">
                       Learn More
                     </span>

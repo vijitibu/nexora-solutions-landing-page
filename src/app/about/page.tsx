@@ -12,6 +12,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import SliderButton from "@/components/ui/SliderButton";
 import { reviews, team, values } from "@/data/about";
 import { Star } from "lucide-react";
+import Footer from "@/components/layout/Footer";
 
 export default function AboutPage() {
   const [current, setCurrent] = useState(0);
@@ -163,7 +164,139 @@ export default function AboutPage() {
             </div>
           </div>
         </section>
+        {/* =========================================
+    MISSION & VISION
+========================================== */}
+        <section className="py-24 px-6">
+          <div className="max-w-7xl mx-auto">
+            {/* Header */}
+            <div className="text-center mb-20">
+              {/* Label */}
+              <div className="flex justify-center mb-8">
+                <div className="inline-flex items-center gap-3 px-6 py-3 rounded-full bg-cyan-500/10 border border-cyan-400/20 backdrop-blur-xl shadow-lg">
+                  {/* Pulse Dot */}
+                  <div className="relative flex h-3 w-3 shrink-0">
+                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-400 opacity-75"></span>
 
+                    <span className="relative inline-flex rounded-full h-3 w-3 bg-cyan-400"></span>
+                  </div>
+
+                  <span className="text-cyan-300 uppercase tracking-[0.25em] text-sm md:text-base font-bold whitespace-nowrap">
+                    Our Purpose
+                  </span>
+                </div>
+              </div>
+
+              {/* Heading */}
+              <h2 className="text-5xl md:text-6xl font-black leading-tight mb-5 text-white">
+                Mission &
+                <span className="bg-linear-to-r from-cyan-300 via-blue-300 to-purple-400 bg-clip-text text-transparent ml-3">
+                  Vision
+                </span>
+              </h2>
+              {/* Description */}
+              <p className="text-gray-300 text-lg md:text-xl leading-relaxed max-w-2xl mx-auto font-light">
+                We empower businesses with innovative technologies, scalable
+                digital products, and future-ready solutions.
+              </p>
+            </div>
+
+            {/* Cards */}
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-stretch">
+              {/* Mission */}
+              <div
+                className="
+          group
+          relative
+          overflow-hidden
+          rounded-[2rem]
+          bg-white/10
+          backdrop-blur-2xl
+          border border-white/10
+p-8 md:p-10          hover:-translate-y-4
+          hover:border-cyan-400/30
+          transition-all duration-500
+          shadow-[0_20px_80px_rgba(0,0,0,0.45)]
+          flex flex-col
+          h-full
+        "
+              >
+                {/* Glow */}
+                <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition duration-700 bg-linear-to-br from-cyan-500/10 via-blue-500/10 to-purple-500/10" />
+
+                {/* Blur */}
+                <div className="absolute -top-20 -right-20 w-56 h-56 bg-cyan-500/10 rounded-full blur-3xl group-hover:scale-150 transition duration-700" />
+
+                {/* Content */}
+                <div className="relative z-10 flex flex-col h-full">
+                  {/* Icon */}
+                  <div className="w-20 h-20 rounded-[2rem] bg-linear-to-br from-cyan-500/20 to-blue-500/20 border border-white/10 flex items-center justify-center shadow-2xl mb-6 group-hover:rotate-6 group-hover:scale-110 transition duration-500">
+                    <span className="text-5xl">🚀</span>
+                  </div>
+
+                  {/* Title */}
+                  <h3 className="text-4xl font-black mb-6">Our Mission</h3>
+
+                  {/* Text */}
+                  <p className="text-gray-300 text-lg leading-relaxed font-light flex-1">
+                    To deliver high-quality digital solutions that help
+                    startups, enterprises, and modern businesses grow, innovate,
+                    and succeed in a rapidly evolving digital world.
+                  </p>
+                </div>
+
+                {/* Bottom Border */}
+                <div className="absolute bottom-0 left-0 h-1 w-0 bg-linear-to-r from-cyan-400 to-blue-500 group-hover:w-full transition-all duration-700" />
+              </div>
+
+              {/* Vision */}
+              <div
+                className="
+          group
+          relative
+          overflow-hidden
+          rounded-[2rem]
+          bg-white/10
+          backdrop-blur-2xl
+          border border-white/10
+p-8 md:p-10          hover:-translate-y-4
+          hover:border-purple-400/30
+          transition-all duration-500
+          shadow-[0_20px_80px_rgba(0,0,0,0.45)]
+          flex flex-col
+          h-full
+        "
+              >
+                {/* Glow */}
+                <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition duration-700 bg-linear-to-br from-purple-500/10 via-pink-500/10 to-cyan-500/10" />
+
+                {/* Blur */}
+                <div className="absolute -bottom-20 -left-20 w-56 h-56 bg-purple-500/10 rounded-full blur-3xl group-hover:scale-150 transition duration-700" />
+
+                {/* Content */}
+                <div className="relative z-10 flex flex-col h-full">
+                  {/* Icon */}
+                  <div className="w-20 h-20 rounded-[2rem] bg-linear-to-br from-purple-500/20 to-pink-500/20 border border-white/10 flex items-center justify-center shadow-2xl mb-6 group-hover:rotate-6 group-hover:scale-110 transition duration-500">
+                    <span className="text-5xl">🌍</span>
+                  </div>
+
+                  {/* Title */}
+                  <h3 className="text-4xl font-black mb-6">Our Vision</h3>
+
+                  {/* Text */}
+                  <p className="text-gray-300 text-lg leading-relaxed font-light flex-1">
+                    To become a globally trusted technology partner known for
+                    innovation, creativity, and delivering scalable digital
+                    experiences that shape the future.
+                  </p>
+                </div>
+
+                {/* Bottom Border */}
+                <div className="absolute bottom-0 left-0 h-1 w-0 bg-linear-to-r from-purple-400 to-pink-500 group-hover:w-full transition-all duration-700" />
+              </div>
+            </div>
+          </div>
+        </section>
         {/* Client Reviews */}
         <section className="py-24 px-6">
           <div className="max-w-7xl mx-auto">
@@ -268,6 +401,7 @@ export default function AboutPage() {
           </div>
         </section>
       </main>
+      <Footer />
     </>
   );
 }
